@@ -21,7 +21,7 @@ let useStyles = createUseStyles(theme => ({
   }
 }));
 
-function Cell({ value }) {
+function Cell({ value, neighbours }) {
   const classes = useStyles();
   return (
     <div className={classes.container}>
