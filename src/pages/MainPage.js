@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { createUseStyles } from "react-jss";
 import Menu from "../components/Menu";
 import BodyPage from "./BodyPage";
+import { CELLSTATES } from "../utils/constants";
 
 let useStyles = createUseStyles(theme => ({
   container: {
@@ -25,6 +26,14 @@ let useStyles = createUseStyles(theme => ({
   }
 }));
 
+function generateEcosystem(size, density) {
+  return Array.from({ length: size * size }, () =>
+    Math.floor(Math.random() * 100) >= density
+      ? CELLSTATES.DEAD
+      : CELLSTATES.ALIVE
+  );
+}
+
 function MainPage() {
   const classes = useStyles();
   const [menuOpened, setMenuOpened] = useState(true);
@@ -43,7 +52,12 @@ function MainPage() {
           setMenuOpened(!menuOpened);
         }}
       >
-        <BodyPage />
+        <BodyPage
+          initState={{
+            cells: generateEcosystem(20, 50),
+            size: 20
+          }}
+        />
       </div>
     </div>
   );

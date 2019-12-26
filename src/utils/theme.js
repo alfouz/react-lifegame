@@ -2,6 +2,7 @@ export default {
   colorPrimary: "#ffffff",
   colorSecondary: "#2c2c2c",
 
+  colorDelimiter: "#acacac",
   colorTextLight: "#ffffff",
   sizes: {
     menuWidth: "256px"

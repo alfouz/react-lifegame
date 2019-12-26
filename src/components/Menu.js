@@ -1,6 +1,6 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
-import texts from "../theme/texts";
+import texts from "../utils/texts";
 
 let useStyles = createUseStyles(theme => ({
   container: {
