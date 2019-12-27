@@ -15,47 +15,79 @@ let useStyles = createUseStyles(theme => ({
   }
 }));
 
+function checkIfTop(index, size) {
+  return index < size;
+}
+function checkIfBottom(index, size, total) {
+  return index >= total - size;
+}
+function checkIfLeft(index, size) {
+  return index % size === 0;
+}
+function checkIfRight(index, size) {
+  return (index + 1) % size === 0;
+}
+
 function getNeighbours(index, ecosystem, size) {
   let neighbours = 0;
   //West
-  if (index > 0 && ecosystem[index - 1] === CELLSTATES.ALIVE) {
+  if (
+    !checkIfLeft(index, size, ecosystem.length) &&
+    ecosystem[index - 1] === CELLSTATES.ALIVE
+  ) {
     neighbours += 1;
   }
   //EAST
-  if (index < ecosystem.length && ecosystem[index + 1] === CELLSTATES.ALIVE) {
+  if (
+    !checkIfRight(index, size, ecosystem.length) &&
+    ecosystem[index + 1] === CELLSTATES.ALIVE
+  ) {
     neighbours += 1;
   }
   //SOUTH
   if (
-    index <= ecosystem.length - size &&
+    !checkIfBottom(index, size, ecosystem.length) &&
     ecosystem[index + size] === CELLSTATES.ALIVE
   ) {
     neighbours += 1;
   }
   //SOUTHWEST
   if (
-    index <= ecosystem.length - size + 1 &&
+    !checkIfBottom(index, size, ecosystem.length) &&
+    !checkIfLeft(index, size, ecosystem.length) &&
     ecosystem[index + size - 1] === CELLSTATES.ALIVE
   ) {
     neighbours += 1;
   }
   //SOUTHEAST
   if (
-    index <= ecosystem.length - size - 1 &&
+    !checkIfBottom(index, size, ecosystem.length) &&
+    !checkIfRight(index, size, ecosystem.length) &&
     ecosystem[index + size + 1] === CELLSTATES.ALIVE
   ) {
     neighbours += 1;
   }
   //NORTH
-  if (index >= size && ecosystem[index - size] === CELLSTATES.ALIVE) {
+  if (
+    !checkIfTop(index, size, ecosystem.length) &&
+    ecosystem[index - size] === CELLSTATES.ALIVE
+  ) {
     neighbours += 1;
   }
   //NORTHWEST
-  if (index >= size + 1 && ecosystem[index - size - 1] === CELLSTATES.ALIVE) {
+  if (
+    !checkIfTop(index, size, ecosystem.length) &&
+    !checkIfLeft(index, size, ecosystem.length) &&
+    ecosystem[index - size - 1] === CELLSTATES.ALIVE
+  ) {
     neighbours += 1;
   }
   //NORTHEAST
-  if (index >= size - 1 && ecosystem[index - size + 1] === CELLSTATES.ALIVE) {
+  if (
+    !checkIfTop(index, size, ecosystem.length) &&
+    !checkIfRight(index, size, ecosystem.length) &&
+    ecosystem[index - size + 1] === CELLSTATES.ALIVE
+  ) {
     neighbours += 1;
   }
   return neighbours;
