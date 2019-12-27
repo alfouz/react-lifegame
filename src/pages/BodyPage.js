@@ -113,7 +113,7 @@ function getState(cell, neighbours) {
       return CELLSTATES.DEAD;
   }
 }
-function BodyPage({ initState, active }) {
+function BodyPage({ initState, active, speed }) {
   const classes = useStyles();
   const [ecosystem, setEcosystem] = useState(initState.cells);
   const nextStep = useCallback(() => {
@@ -132,18 +132,18 @@ function BodyPage({ initState, active }) {
       table[i] = (
         <div className={classes.row} key={`row${i}`}>
           {arrayChunk.map((cell, index) => (
-            <Cell value={cell} key={`cell${index}`} />
+            <Cell value={cell} key={`cell${index}`} speed={speed / 1000} />
           ))}
         </div>
       );
     }
     return table;
-  }, [ecosystem, classes, initState]);
+  }, [ecosystem, classes, initState, speed]);
 
   useEffect(() => {
-    const intervalId = setInterval(nextStep, 1000);
+    const intervalId = setInterval(nextStep, speed);
     return () => clearInterval(intervalId);
-  }, [nextStep]);
+  }, [nextStep, speed]);
 
   return <div className={classes.container}>{createTable()}</div>;
 }

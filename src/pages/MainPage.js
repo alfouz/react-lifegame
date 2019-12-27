@@ -37,6 +37,7 @@ function generateEcosystem(size, density) {
 function MainPage() {
   const classes = useStyles();
   const [menuOpened, setMenuOpened] = useState(true);
+  const size = 30;
   return (
     <div className={classes.container}>
       <div
@@ -54,9 +55,10 @@ function MainPage() {
       >
         <BodyPage
           initState={{
-            cells: generateEcosystem(20, 50),
-            size: 20
+            cells: generateEcosystem(size, 50),
+            size: size
           }}
+          speed={500}
         />
       </div>
     </div>

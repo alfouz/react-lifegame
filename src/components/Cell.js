@@ -8,21 +8,29 @@ let useStyles = createUseStyles(theme => ({
     background: theme.colorPrimary,
     width: "20px",
     height: "20px",
-    border: `1px solid ${theme.colorDelimiter}`
+    border: `1px solid ${theme.colorDelimiter}`,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   },
   cell: {
-    width: "100%",
-    height: "100%",
+    width: "10%",
+    height: "10%",
     borderRadius: "50%",
-    transition: "background 1s"
+    transition: props =>
+      props.speed
+        ? `background ${props.speed}s, width ${props.speed}s, height ${props.speed}s`
+        : `background 0.5s, width 0.2s, height 0.2s`
   },
   cellAlive: {
-    background: "red"
+    background: "red",
+    width: "100%",
+    height: "100%"
   }
 }));
 
-function Cell({ value }) {
-  const classes = useStyles();
+function Cell({ value, speed }) {
+  const classes = useStyles({ speed: speed });
   return (
     <div className={classes.container}>
       <div
